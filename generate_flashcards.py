@@ -1,10 +1,15 @@
 
 
+
+
+
+
+
+
 import sympy as sp
 import random
 import json
 import os
-import re
 
 # Variables (typical algebra vars)
 vars_list = ["a", "b", "c", "m", "n", "p", "q", "x", "y", "z"]
@@ -78,17 +83,17 @@ def generate_case(case_type):
 
     elif case_type == 3:
         # (ax + b)(ax - b)
-        a = random.choice([i for i in range(-9, 10) if i != 0])
+        a = random.randint(1, 9)  # only positive
         b = random.randint(1, 9)
-        a_str = "" if a == 1 else ("-" if a == -1 else str(a))
+        a_str = "" if a == 1 else str(a)
         q = f"({a_str}{x} + {b})({a_str}{x} - {b})"
         ans = format_poly(sp.expand((a * x + b) * (a * x - b)))
 
     else:  # case_type == 4
         # (ax + by)(ax - by)
-        a = random.choice([i for i in range(-9, 10) if i != 0])
+        a = random.randint(1, 9)  # only positive
         b = random.randint(1, 9)
-        a_str = "" if a == 1 else ("-" if a == -1 else str(a))
+        a_str = "" if a == 1 else str(a)
         b_str = "" if b == 1 else str(b)
         q = f"({a_str}{x} + {b_str}{y})({a_str}{x} - {b_str}{y})"
         ans = format_poly(sp.expand((a * x + b * y) * (a * x - b * y)))
@@ -111,5 +116,3 @@ with open(output_path, "w") as f:
 
 print(f"✅ flashcards.json generated with {len(flashcards)} flashcards at {output_path}")
 
-
- 
